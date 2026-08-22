@@ -1,735 +1,1405 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Univ College | Affiliated to Tribhuvan University</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --maroon: #1F5673;
-    --maroon-dark: #123241;
-    --gold: #4C8C6B;
-    --gold-soft: #A9CDB6;
-    --cream: #EFF4F0;
-    --paper: #FAFCFA;
-    --ink: #212B28;
-    --ink-soft: #5C6B64;
-    --line: #C9D8CC;
-    --radius: 2px;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,.display{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    color:var(--maroon-dark);
-  }
-  .mono{
-    font-family:'JetBrains Mono', monospace;
-    letter-spacing:0.04em;
-  }
-  a{color:inherit; text-decoration:none;}
-  img,svg{display:block; max-width:100%;}
-  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
-  ::selection{background:var(--gold-soft); color:var(--maroon-dark);}
-  :focus-visible{outline:2px solid var(--maroon); outline-offset:3px;}
-
-  /* subtle ledger-rule background texture used on light sections */
-  .ruled{
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 37px,
-      rgba(122,35,49,0.055) 38px
-    );
-  }
-
-  /* ---------- Header ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:var(--maroon-dark);
-    border-bottom:1px solid var(--gold);
-  }
-  .nav-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 0;
-  }
-  .brand{display:flex; align-items:center; gap:12px;}
-  .brand-seal{width:40px; height:40px; flex:none;}
-  .brand-text .name{font-family:'Fraunces', serif; font-weight:600; font-size:1.02rem; line-height:1.15; color:var(--cream);}
-  .brand-text .tag{font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft);}
-  nav.links{display:flex; gap:28px; font-size:0.88rem; font-weight:500;}
-  nav.links a{position:relative; padding:4px 0; color:var(--cream);}
-  nav.links a:after{
-    content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px;
-    background:var(--gold-soft); transition:width .25s ease;
-  }
-  nav.links a:hover:after{width:100%;}
-  .nav-cta{
-    background:var(--gold); color:var(--paper); font-size:0.82rem; font-weight:600;
-    padding:9px 18px; border-radius:var(--radius); border:1px solid var(--gold);
-    white-space:nowrap;
-  }
-  .nav-cta:hover{background:#3E7658;}
-  .menu-btn{display:none; background:none; border:none; font-size:1.4rem; color:var(--cream); cursor:pointer;}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    padding:76px 0 60px;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero .wrap{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;}
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;
-    color:var(--maroon); font-weight:600; margin-bottom:18px;
-  }
-  .eyebrow:before{content:""; width:26px; height:1px; background:var(--maroon);}
-  .hero h1{font-size:clamp(2.1rem, 4.2vw, 3.4rem); line-height:1.08; margin-bottom:20px;}
-  .hero h1 em{font-style:italic; color:var(--maroon);}
-  .hero p.lede{max-width:46ch; color:var(--ink-soft); font-size:1.03rem; margin-bottom:30px;}
-  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
-  .btn-primary, .btn-secondary{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:13px 24px; font-size:0.92rem; font-weight:600; border-radius:var(--radius);
-    transition:transform .15s ease, background .15s ease;
-  }
-  .btn-primary{background:var(--maroon); color:var(--paper); border:1px solid var(--maroon-dark);}
-  .btn-primary:hover{background:var(--maroon-dark); transform:translateY(-1px);}
-  .btn-secondary{background:transparent; color:var(--maroon-dark); border:1px solid var(--line);}
-  .btn-secondary:hover{border-color:var(--maroon); transform:translateY(-1px);}
-
-  /* affiliation seal card in hero */
-  .seal-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
-    padding:34px 26px; text-align:center; position:relative;
-  }
-  .seal-card:before{
-    content:""; position:absolute; inset:8px; border:1px dashed var(--gold-soft); border-radius:var(--radius);
-    pointer-events:none;
-  }
-  .seal-big{width:150px; height:auto; margin:0 auto 18px; object-fit:contain;}
-  .seal-card .line1{font-family:'Fraunces', serif; font-size:1rem; font-weight:600; color:var(--maroon-dark); margin-bottom:4px;}
-  .seal-card .line2{font-size:0.78rem; color:var(--ink-soft); letter-spacing:0.03em;}
-
-  section{padding:74px 0;}
-  .section-head{max-width:640px; margin-bottom:44px;}
-  .section-head .eyebrow{margin-bottom:12px;}
-  .section-head h2{font-size:clamp(1.6rem,2.6vw,2.2rem);}
-  .section-head p{color:var(--ink-soft); margin-top:12px; font-size:0.98rem;}
-
-  /* ---------- About ---------- */
-  .about{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
-  .about p{color:var(--ink-soft); margin-bottom:16px; font-size:0.98rem;}
-  .fact-ledger{border-top:1px solid var(--line);}
-  .fact-row{
-    display:flex; justify-content:space-between; align-items:baseline;
-    padding:16px 0; border-bottom:1px solid var(--line);
-  }
-  .fact-row .k{font-size:0.86rem; color:var(--ink-soft);}
-  .fact-row .v{font-family:'Fraunces', serif; font-weight:600; color:var(--maroon-dark); font-size:1.1rem;}
-
-  /* ---------- Feature cards ---------- */
-  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-  .feature-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
-    padding:26px 22px; transition:border-color .2s ease, transform .2s ease;
-  }
-  .feature-card:hover{border-color:var(--gold); transform:translateY(-3px);}
-  .feature-card .fi{
-    width:38px; height:38px; margin-bottom:16px; color:var(--maroon);
-  }
-  .feature-card h3{font-size:1.02rem; margin-bottom:8px;}
-  .feature-card p{font-size:0.88rem; color:var(--ink-soft);}
-
-  /* ---------- Program / transcript signature section ---------- */
-  .program{background:var(--maroon-dark); color:var(--cream);}
-  .program h2, .program .section-head p{color:var(--cream);}
-  .program .eyebrow{color:var(--gold-soft);}
-  .program .eyebrow:before{background:var(--gold-soft);}
-  .program .section-head p{color:#BFD6C9;}
-
-  .transcript{
-    background:var(--paper); color:var(--ink); border-radius:var(--radius);
-    overflow:hidden; border:1px solid var(--gold-soft);
-  }
-  .transcript-head{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:18px 24px; background:var(--cream); border-bottom:2px solid var(--maroon);
-    flex-wrap:wrap; gap:10px;
-  }
-  .transcript-head .t1{font-family:'Fraunces', serif; font-weight:600; color:var(--maroon-dark);}
-  .transcript-head .t2{font-size:0.78rem; color:var(--ink-soft);}
-  .year-tabs{display:flex; flex-wrap:wrap; border-bottom:1px solid var(--line);}
-  .year-tab{
-    flex:1; min-width:130px; text-align:center; padding:13px 10px; font-size:0.84rem; font-weight:600;
-    color:var(--ink-soft); cursor:pointer; border-right:1px solid var(--line); border-bottom:3px solid transparent;
-    background:none;
-  }
-  .year-tab:last-child{border-right:none;}
-  .year-tab.active{color:var(--maroon-dark); border-bottom-color:var(--maroon);}
-  table.ledger{width:100%; border-collapse:collapse; font-size:0.88rem;}
-  table.ledger thead th{
-    text-align:left; padding:12px 24px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em;
-    color:var(--ink-soft); border-bottom:1px solid var(--line);
-  }
-  table.ledger tbody td{padding:12px 24px; border-bottom:1px solid var(--line);}
-  table.ledger tbody tr:last-child td{border-bottom:none;}
-  table.ledger td.code{font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--maroon);}
-  table.ledger td.credit{font-family:'JetBrains Mono', monospace; text-align:right; color:var(--ink-soft);}
-  .year-panel{display:none;}
-  .year-panel.active{display:block;}
-  .transcript-foot{
-    display:flex; justify-content:space-between; padding:14px 24px; background:var(--cream);
-    font-size:0.78rem; color:var(--ink-soft); border-top:1px solid var(--line); flex-wrap:wrap; gap:8px;
-  }
-
-  /* ---------- Facilities ---------- */
-  .facilities{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
-  .fac-item{background:var(--paper); padding:26px 20px;}
-  .fac-item .fi{width:30px; height:30px; color:var(--maroon); margin-bottom:14px;}
-  .fac-item h3{font-size:0.94rem; margin-bottom:6px;}
-  .fac-item p{font-size:0.82rem; color:var(--ink-soft);}
-
-  /* ---------- Admissions ---------- */
-  .admissions{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
-  .steps{list-style:none;}
-  .steps li{display:flex; gap:16px; padding:18px 0; border-bottom:1px solid var(--line);}
-  .steps li:first-child{padding-top:0;}
-  .steps .num{
-    font-family:'Fraunces', serif; font-weight:600; color:var(--maroon); font-size:1.1rem;
-    flex:none; width:28px;
-  }
-  .steps h3{font-size:0.96rem; margin-bottom:4px;}
-  .steps p{font-size:0.86rem; color:var(--ink-soft);}
-  .notice-board{
-    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:6px;
-  }
-  .notice-board .nb-head{
-    padding:14px 18px; font-family:'Fraunces', serif; font-weight:600; color:var(--maroon-dark);
-    border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;
-  }
-  .nb-head .dot{width:8px; height:8px; border-radius:50%; background:var(--gold);}
-  .notice{padding:14px 18px; border-bottom:1px dashed var(--line); font-size:0.86rem;}
-  .notice:last-child{border-bottom:none;}
-  .notice .date{font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--maroon); display:block; margin-bottom:4px;}
-
-  /* ---------- Faculty ---------- */
-  .faculty-carousel{position:relative;}
-  .grid-4{
-    display:flex; gap:22px; overflow-x:auto; padding-bottom:6px; scroll-padding:0 4px;
-    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  .grid-4::-webkit-scrollbar{display:none;}
-  .fac-card{text-align:left; flex:0 0 220px; scroll-snap-align:start;}
-  .car-btn{
-    position:absolute; top:calc(50% - 20px); transform:translateY(-50%);
-    width:40px; height:40px; border-radius:50%; z-index:5;
-    background:var(--paper); border:1px solid var(--line); color:var(--maroon-dark);
-    font-size:1.4rem; line-height:1; cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 3px 10px rgba(18,50,65,0.12);
-    transition:border-color .2s ease, background .2s ease;
-  }
-  .car-btn:hover{border-color:var(--maroon); background:var(--cream);}
-  .car-btn.prev{left:-8px;}
-  .car-btn.next{right:-8px;}
-  .car-btn:disabled{opacity:0.35; cursor:default;}
-  .car-dots{display:flex; justify-content:center; gap:8px; margin-top:22px;}
-  .car-dot{width:8px; height:8px; padding:0; border-radius:50%; border:none; background:var(--line); cursor:pointer;}
-  .car-dot.active{background:var(--maroon);}
-  @media (max-width: 620px){
-    .car-btn.prev{left:-4px;}
-    .car-btn.next{right:-4px;}
-  }
-
-  .fac-avatar{
-    width:100%; aspect-ratio:1; border-radius:var(--radius); background:linear-gradient(160deg, var(--gold-soft), var(--maroon));
-    margin-bottom:14px; display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces', serif; font-size:1.6rem; color:var(--paper); font-weight:600;
-  }
-  .fac-card h3{font-size:0.94rem; margin-bottom:2px;}
-  .fac-card .role{font-size:0.78rem; color:var(--maroon); font-weight:600; margin-bottom:6px;}
-  .fac-card .deg{font-size:0.8rem; color:var(--ink-soft);}
-
-  /* ---------- Contact / footer ---------- */
-  .contact{background:var(--cream);}
-  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
-  .contact-list{list-style:none; margin-top:22px;}
-  .contact-list li{display:flex; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); font-size:0.92rem;}
-  .contact-list .ci{width:20px; color:var(--maroon); flex:none;}
-  .map-box{
-    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
-    aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;
-    color:var(--ink-soft); font-size:0.84rem; text-align:center; padding:20px;
-  }
-  .map-box svg{width:34px; height:34px; color:var(--maroon);}
-
-  footer{background:var(--maroon-dark); color:var(--gold-soft); padding:40px 0 26px;}
-  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
-  .foot-brand{display:flex; align-items:center; gap:12px;}
-  .foot-brand .name{font-family:'Fraunces', serif; color:var(--cream); font-weight:600;}
-  .foot-links{display:flex; gap:22px; font-size:0.84rem;}
-  .foot-links a:hover{color:var(--cream);}
-  .foot-fine{margin-top:22px; padding-top:18px; border-top:1px solid rgba(169,205,182,0.25); font-size:0.76rem; color:#9FC2AC; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
-
-  [data-reveal]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
-  [data-reveal].in{opacity:1; transform:none;}
-
-  @media (max-width: 880px){
-    nav.links, .nav-cta{display:none;}
-    .menu-btn{display:block;}
-    .hero .wrap{grid-template-columns:1fr;}
-    .about, .admissions, .contact-grid{grid-template-columns:1fr;}
-    .grid-3{grid-template-columns:1fr 1fr;}
-    .facilities{grid-template-columns:1fr 1fr;}
-    table.ledger{font-size:0.8rem;}
-    table.ledger thead th, table.ledger tbody td{padding:10px 14px;}
-  }
-  @media (max-width: 520px){
-    .grid-3, .facilities{grid-template-columns:1fr;}
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none !important; scroll-behavior:auto !important;}
-    [data-reveal]{opacity:1; transform:none;}
-  }
-</style>
-</head>
-<body>
-
-<!-- =========== HEADER =========== -->
-<header>
-  <div class="wrap nav-row">
-    <div class="brand">
-      <img class="brand-seal" src="./images/univ-logo.png" alt="Univ College seal">
-      <div class="brand-text">
-        <div class="name">Univ College</div>
-        <div class="tag">Bachelor of Business Studies</div>
-      </div>
-    </div>
-    <nav class="links">
-      <a href="#about">About</a>
-      <a href="#program">BBS Program</a>
-      <a href="#admissions">Admissions</a>
-      <a href="#faculty">Faculty</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="#admissions" class="nav-cta">Apply for 2083 intake</a>
-    <button class="menu-btn" aria-label="Menu">&#9776;</button>
-  </div>
-</header>
-
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap">
-    <div>
-      <div class="eyebrow">Affiliated to Tribhuvan University · Faculty of Management</div>
-      <h1>Four years to build the ledger of <em>your career</em>.</h1>
-      <p class="lede">Univ College has run the TU Bachelor of Business Studies programme from Biratnagar since 2008 — small classes, teaching faculty who mark your own exams, and a placement cell that starts working in your third year, not your last.</p>
-      <div class="hero-actions">
-        <a href="#admissions" class="btn-primary">Start your application &rarr;</a>
-        <a href="#program" class="btn-secondary">See the BBS curriculum</a>
-      </div>
-    </div>
-    <div class="seal-card">
-      <img class="seal-big" src="./images/univ-logo.png" alt="Univ College official seal, Biratnagar, Estd. 2008">
-      <div class="line1">Recognised Affiliate</div>
-      <div class="line2">Tribhuvan University, Faculty of Management</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ABOUT ============ -->
-<section id="about" class="ruled">
-  <div class="wrap about">
-    <div data-reveal>
-      <div class="eyebrow">About the college</div>
-      <h2>A campus built around one programme, run properly.</h2>
-      <p>Univ College was established to offer a single, focused undergraduate programme rather than a wide prospectus of unrelated courses. Every classroom, faculty appointment, and library acquisition serves the T.U. Bachelor of Business Studies syllabus.</p>
-      <p>Our lecturers set and mark the internal assessments themselves, sit on T.U.'s subject committees, and hold office hours students actually use — the corridor outside the accounts faculty room is busier than the canteen before internals.</p>
-    </div>
-    <div class="fact-ledger" data-reveal>
-      <div class="fact-row"><span class="k">Affiliation</span><span class="v">Tribhuvan University</span></div>
-      <div class="fact-row"><span class="k">Faculty</span><span class="v">Management</span></div>
-      <div class="fact-row"><span class="k">Programme offered</span><span class="v">BBS (Hons.)</span></div>
-      <div class="fact-row"><span class="k">Established</span><span class="v">2065 B.S. / 2008 A.D.</span></div>
-      <div class="fact-row"><span class="k">Medium of instruction</span><span class="v">English &amp; Nepali</span></div>
-      <div class="fact-row"><span class="k">Campus location</span><span class="v">Biratnagar, Koshi Province</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ WHY US ============ -->
-<section>
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow">Why students choose Univ College</div>
-      <h2>What the T.U. syllabus doesn't teach, we build alongside it.</h2>
-    </div>
-    <div class="grid-3">
-      <div class="feature-card" data-reveal>
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 4v5h5"/></svg>
-        <h3>Question-bank & internal prep</h3>
-        <p>Past T.U. question papers, model answers and weekly internal tests from Year I, not a scramble before finals.</p>
-      </div>
-      <div class="feature-card" data-reveal>
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18"/><path d="M6 21V9l6-5 6 5v12"/><path d="M10 21v-6h4v6"/></svg>
-        <h3>Bank & accounting labs</h3>
-        <p>A working Tally and MS-Excel lab so account-keeping is muscle memory before the Financial Accounting exam.</p>
-      </div>
-      <div class="feature-card" data-reveal>
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <h3>Placement cell from Year III</h3>
-        <p>Internship tie-ups with local banks, cooperatives and audit firms so your CV isn't empty at graduation.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PROGRAM (signature transcript section) ============ -->
-<section id="program" class="program">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow">Bachelor of Business Studies</div>
-      <h2>The four-year structure, laid out like your mark-sheet.</h2>
-      <p>24 papers across four years, following the T.U. Faculty of Management syllabus. Tap a year to see its subjects and credit hours.</p>
-    </div>
-
-    <div class="transcript" data-reveal>
-      <div class="transcript-head">
-        <div class="t1">BBS Programme Structure</div>
-        <div class="t2 mono">T.U. FACULTY OF MANAGEMENT · TOTAL CREDIT HRS 120</div>
-      </div>
-      <div class="year-tabs" role="tablist">
-        <button class="year-tab active" data-year="1">Year I</button>
-        <button class="year-tab" data-year="2">Year II</button>
-        <button class="year-tab" data-year="3">Year III</button>
-        <button class="year-tab" data-year="4">Year IV</button>
-      </div>
-
-      <div class="year-panel active" data-panel="1">
-        <table class="ledger">
-          <thead><tr><th>Code</th><th>Subject</th><th style="text-align:right">Credit hrs</th></tr></thead>
-          <tbody>
-            <tr><td class="code">MGT 201</td><td>Business Communication</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 202</td><td>Business Environment in Nepal</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 203</td><td>Microeconomics</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 204</td><td>Business Statistics I</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 205</td><td>Financial Accounting I</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 206</td><td>Fundamentals of IT</td><td class="credit">3</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="year-panel" data-panel="2">
-        <table class="ledger">
-          <thead><tr><th>Code</th><th>Subject</th><th style="text-align:right">Credit hrs</th></tr></thead>
-          <tbody>
-            <tr><td class="code">MGT 207</td><td>Macroeconomics</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 208</td><td>Business Statistics II</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 209</td><td>Financial Accounting II</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 210</td><td>Business Law</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 211</td><td>Human Resource Management</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 212</td><td>Cost & Management Accounting</td><td class="credit">3</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="year-panel" data-panel="3">
-        <table class="ledger">
-          <thead><tr><th>Code</th><th>Subject</th><th style="text-align:right">Credit hrs</th></tr></thead>
-          <tbody>
-            <tr><td class="code">MGT 301</td><td>Fundamentals of Financial Management</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 302</td><td>Fundamentals of Marketing</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 303</td><td>Organizational Behaviour</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 304</td><td>Business Research Methods</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 305</td><td>Taxation in Nepal</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 306</td><td>Elective I</td><td class="credit">3</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="year-panel" data-panel="4">
-        <table class="ledger">
-          <thead><tr><th>Code</th><th>Subject</th><th style="text-align:right">Credit hrs</th></tr></thead>
-          <tbody>
-            <tr><td class="code">MGT 401</td><td>Strategic Management</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 402</td><td>Elective II</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 403</td><td>Elective III</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 404</td><td>Project Work / Internship</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 405</td><td>Entrepreneurship Development</td><td class="credit">3</td></tr>
-            <tr><td class="code">MGT 406</td><td>Elective IV</td><td class="credit">3</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="transcript-foot">
-        <span>Electives: Finance · Marketing · HR · IT (choose stream in Year III)</span>
-        <span>Subject to T.U. syllabus revisions</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FACILITIES ============ -->
-<section>
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow">On campus</div>
-      <h2>Facilities built for exam season and beyond.</h2>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="facilities" data-reveal>
-      <div class="fac-item">
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <h3>Reference library</h3>
-        <p>T.U.-prescribed texts, past papers and journals, open until 6pm on exam weeks.</p>
-      </div>
-      <div class="fac-item">
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg>
-        <h3>Computer & accounting lab</h3>
-        <p>MS Office, Tally and SPSS access for Business Statistics and research coursework.</p>
-      </div>
-      <div class="fac-item">
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        <h3>Case-study rooms</h3>
-        <p>Small seminar rooms for group presentations in Marketing and Strategic Management.</p>
-      </div>
-      <div class="fac-item">
-        <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <h3>Counselling & advising</h3>
-        <p>An academic advisor assigned to every batch from admission through to the final project.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ADMISSIONS ============ -->
-<section id="admissions" class="ruled">
-  <div class="wrap admissions">
-    <div data-reveal>
-      <div class="eyebrow">Admissions</div>
-      <h2>How to join the BBS programme</h2>
-      <ol class="steps">
-        <li><span class="num">1</span><div><h3>Submit the application form</h3><p>Online or at the campus admission counter, along with SLC/SEE and +2 transcripts.</p></div></li>
-        <li><span class="num">2</span><div><h3>Sit the entrance assessment</h3><p>A short written test in English and general aptitude, held on campus.</p></div></li>
-        <li><span class="num">3</span><div><h3>Interview & seat confirmation</h3><p>A brief interview, followed by fee submission to confirm your seat.</p></div></li>
-        <li><span class="num">4</span><div><h3>T.U. registration</h3><p>The college handles your registration with Tribhuvan University directly.</p></div></li>
-      </ol>
-    </div>
-    <div data-reveal>
-      <div class="notice-board">
-        <div class="nb-head"><span>Notice Board</span><span class="dot"></span></div>
-        <div class="notice"><span class="date">2083.04.01</span>BBS first-year admissions open for the new academic session.</div>
-        <div class="notice"><span class="date">2083.03.18</span>Entrance assessment date fixed — check campus notice board for your slot.</div>
-        <div class="notice"><span class="date">2083.02.27</span>Scholarship forms for full-fee waiver (open merit + inclusive quota) now available.</div>
-        <div class="notice"><span class="date">2083.02.10</span>Fourth-year internship placements begin for the current batch.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FACULTY ============ -->
-<section id="faculty">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow">Teaching faculty</div>
-      <h2>Who you'll actually be taught by</h2>
-    </div>
-    <div class="faculty-carousel">
-      <button class="car-btn prev" id="facPrev" aria-label="Previous faculty">&#8249;</button>
-      <div class="grid-4" id="facultyTrack">
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">RS</div>
-        <h3>Ram Sharma</h3>
-        <div class="role">Financial Accounting</div>
-        <div class="deg">M.B.S., T.U. · 14 yrs teaching</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">SP</div>
-        <h3>Sabina Pradhan</h3>
-        <div class="role">Marketing & Strategy</div>
-        <div class="deg">M.Phil. Management</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">BK</div>
-        <h3>Bikash Karki</h3>
-        <div class="role">Economics & Statistics</div>
-        <div class="deg">M.A. Economics, T.U.</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">AT</div>
-        <h3>Anita Thapa</h3>
-        <div class="role">HR & Organizational Behaviour</div>
-        <div class="deg">M.B.S., Gold Medalist</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">SR</div>
-        <h3>Suresh Rai</h3>
-        <div class="role">Business Law</div>
-        <div class="deg">LL.B., T.U. · 10 yrs teaching</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">NG</div>
-        <h3>Nirmala Gurung</h3>
-        <div class="role">Accounting & Taxation</div>
-        <div class="deg">M.Com., T.U.</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">DB</div>
-        <h3>Deepak Basnet</h3>
-        <div class="role">IT & Business Statistics</div>
-        <div class="deg">M.Sc. Computer Science</div>
-      </div>
-      <div class="fac-card" data-reveal>
-        <div class="fac-avatar">KS</div>
-        <h3>Kabita Shrestha</h3>
-        <div class="role">Entrepreneurship & Strategy</div>
-        <div class="deg">MBA, T.U. Gold Medalist</div>
-      </div>
-      </div>
-      <button class="car-btn next" id="facNext" aria-label="Next faculty">&#8250;</button>
-    </div>
-    <div class="car-dots" id="facultyDots"></div>
-  </div>
-</section>
-
-<!-- ============ CONTACT ============ -->
-<section id="contact" class="contact">
-  <div class="wrap contact-grid">
-    <div data-reveal>
-      <div class="eyebrow">Get in touch</div>
-      <h2>Visit or write to the admission office</h2>
-      <ul class="contact-list">
-        <li><span class="ci">&#128205;</span>Biratnagar, Koshi Province, Nepal</li>
-        <li><span class="ci">&#9742;</span>+977-1-4XXXXXX &nbsp;/&nbsp; +977-98XXXXXXXX</li>
-        <li><span class="ci">&#9993;</span>univcollege791@gmail.com</li>
-        <li><span class="ci">&#128337;</span>Sun–Fri, 6:00 AM – 5:00 PM (Saturday closed)</li>
-      </ul>
-    </div>
-    <div data-reveal>
-      <div class="map-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-7.5 8-13a8 8 0 1 0-16 0c0 5.5 8 13 8 13Z"/><circle cx="12" cy="9" r="3"/></svg>
-        <div>Campus map embed goes here<br>(replace with your Google Maps link)</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="foot-row">
-      <div class="foot-brand">
-        <img src="./images/univ-logo.png" alt="Univ College seal" width="30" height="30" style="border-radius:50%">
-        <div class="name">Univ College</div>
-      </div>
-      <div class="foot-links">
-        <a href="#about">About</a>
-        <a href="#program">Program</a>
-        <a href="#admissions">Admissions</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </div>
-    <div class="foot-fine">
-      <span>&copy; 2083 B.S. Univ College. Affiliated to Tribhuvan University, Faculty of Management.</span>
-      <span>Sample content — replace with your college's own details.</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // Year tabs for the transcript section
-  document.querySelectorAll('.year-tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      document.querySelectorAll('.year-tab').forEach(t=>t.classList.remove('active'));
-      document.querySelectorAll('.year-panel').forEach(p=>p.classList.remove('active'));
-      tab.classList.add('active');
-      document.querySelector('.year-panel[data-panel="'+tab.dataset.year+'"]').classList.add('active');
-    });
-  });
-
-  // Scroll reveal
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  }, {threshold:0.15});
-  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-
-  // Faculty carousel — infinite loop via cloned card sets
-  (function(){
-    const track = document.getElementById('facultyTrack');
-    const prevBtn = document.getElementById('facPrev');
-    const nextBtn = document.getElementById('facNext');
-    const dotsWrap = document.getElementById('facultyDots');
-    if(!track) return;
-
-    const originals = Array.from(track.children);
-    const count = originals.length;
-
-    // Build [clones-before][originals][clones-after] so the track can be
-    // scrolled past either end and silently repositioned mid-scroll.
-    const cloneSet = () => originals.map(card=>{
-      const clone = card.cloneNode(true);
-      clone.removeAttribute('data-reveal'); // clones render immediately, no fade-in
-      clone.setAttribute('aria-hidden', 'true');
-      return clone;
-    });
-    const before = cloneSet();
-    const after = cloneSet();
-    track.innerHTML = '';
-    before.forEach(c=> track.appendChild(c));
-    originals.forEach(c=> track.appendChild(c));
-    after.forEach(c=> track.appendChild(c));
-
-    // Dots reflect the real (middle-set) cards only
-    originals.forEach((card, i)=>{
-      const dot = document.createElement('button');
-      dot.className = 'car-dot' + (i===0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to faculty ' + (i+1));
-      dot.addEventListener('click', ()=> card.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'}));
-      dotsWrap.appendChild(dot);
-    });
-    const dots = Array.from(dotsWrap.children);
-
-    function step(){
-      return originals[0].getBoundingClientRect().width + 22; // card width + gap
-    }
-    function setWidth(){
-      return track.scrollWidth / 3;
-    }
-
-    // Start positioned at the beginning of the middle (real) set
-    track.scrollLeft = setWidth();
-
-    function wrapIfNeeded(){
-      const sw = setWidth();
-      if(track.scrollLeft <= 2){
-        track.scrollLeft += sw;
-      } else if(track.scrollLeft + track.clientWidth >= track.scrollWidth - 2){
-        track.scrollLeft -= sw;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/png" href="images/univ-logo.png" />
+    <title>Univ College | Eduction for Excellence ...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #062d65;
+        --blue: #0a56ba;
+        --gold: #f4ad2c;
+        --sky: #edf5ff;
+        --ink: #13223a;
+        --muted: #63738c;
+        --line: #dbe5f1;
       }
-    }
-    function updateDots(){
-      const sw = setWidth();
-      const rawIndex = Math.round((track.scrollLeft - sw) / step());
-      const activeIndex = ((rawIndex % count) + count) % count;
-      dots.forEach((d,i)=> d.classList.toggle('active', i===activeIndex));
-    }
-
-    prevBtn.addEventListener('click', ()=> track.scrollBy({left:-step(), behavior:'smooth'}));
-    nextBtn.addEventListener('click', ()=> track.scrollBy({left:step(), behavior:'smooth'}));
-    track.addEventListener('scroll', ()=> requestAnimationFrame(()=>{ wrapIfNeeded(); updateDots(); }));
-    window.addEventListener('resize', ()=> { track.scrollLeft = setWidth() + (Math.round((track.scrollLeft - setWidth())/step()) * step()); });
-  })();
-</script>
-
-</body>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font:
+          16px "DM Sans",
+          sans-serif;
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: Outfit, sans-serif;
+        line-height: 1.1;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .container {
+        width: min(1160px, calc(100% - 40px));
+        margin: auto;
+      }
+      .eyebrow {
+        color: var(--blue);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .btn {
+        display: inline-block;
+        border-radius: 8px;
+        padding: 13px 21px;
+        font-weight: 700;
+      }
+      .top {
+        background: #031f47;
+        color: #c6d8f0;
+        font-size: 0.8rem;
+      }
+      .top .container {
+        height: 38px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header {
+        height: 78px;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #fff;
+        box-shadow: 0 3px 18px #072d6511;
+      }
+      .nav {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .brand {
+        display: flex;
+        gap: 11px;
+        align-items: center;
+      }
+      .brand img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+      }
+      .brand b {
+        font:
+          700 1.15rem Outfit,
+          sans-serif;
+        color: var(--navy);
+        display: block;
+      }
+      .brand small {
+        color: var(--muted);
+        font-size: 0.67rem;
+        font-family: "Sacramento", cursive;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .links {
+        display: flex;
+        gap: 27px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #42536a;
+      }
+      .links a:hover {
+        color: var(--blue);
+      }
+      .apply {
+        background: var(--blue);
+        color: #fff;
+        padding: 10px 17px;
+        border-radius: 7px;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .menu {
+        display: none;
+        border: 0;
+        background: none;
+        font-size: 1.6rem;
+        color: var(--navy);
+      }
+      .hero {
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(112deg, #04234e, #073b83 62%, #0a5bc2);
+        color: #fff;
+      }
+      .hero:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            125deg,
+            transparent 63%,
+            #ffffff12 63% 64%,
+            transparent 64%
+          ),
+          radial-gradient(circle at 82% 27%, #f4ad2ca3 0 3%, transparent 3.4%),
+          radial-gradient(
+            circle at 82% 27%,
+            transparent 0 14%,
+            #fff2 14.2% 14.6%,
+            transparent 14.8%
+          );
+      }
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        min-height: 570px;
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        align-items: center;
+        gap: 50px;
+      }
+      .hero h1 {
+        font-size: clamp(2.8rem, 5.2vw, 4.7rem);
+        letter-spacing: -0.045em;
+        margin: 13px 0 19px;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--gold);
+      }
+      .hero p {
+        color: #d7e6fa;
+        max-width: 555px;
+        font-size: 1.06rem;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 29px;
+        flex-wrap: wrap;
+      }
+      .primary {
+        background: var(--gold);
+        color: #172236;
+      }
+      .outline {
+        color: #fff;
+        border: 1px solid #fff9;
+      }
+      .outline:hover {
+        background: #fff;
+        color: var(--navy);
+      }
+      .hero-card {
+        min-height: 390px;
+        border: 1px solid #fff5;
+        border-radius: 18px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          150deg,
+          #b9dfff,
+          #4c99e6 45%,
+          #163d7d 46%,
+          #072758
+        );
+        box-shadow: 20px 25px 0 #00102e30;
+      }
+      .hero-card:before {
+        content: "";
+        position: absolute;
+        width: 270px;
+        height: 270px;
+        border: 34px solid #fff3;
+        border-radius: 50%;
+        right: -75px;
+        top: -54px;
+      }
+      .degree {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        z-index: 2;
+      }
+      .degree img {
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+        margin: auto;
+      }
+      .degree b {
+        font:
+          700 1.5rem Outfit,
+          sans-serif;
+        margin-top: 14px;
+      }
+      .degree span {
+        font-size: 0.9rem;
+        color: #edf5ff;
+      }
+      .tag {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        z-index: 3;
+        background: #fff;
+        color: var(--navy);
+        padding: 10px 14px;
+        border-radius: 9px;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+      .tag b {
+        display: block;
+        color: var(--blue);
+        font-size: 1.1rem;
+      }
+      .facts {
+        box-shadow: 0 7px 25px #1134601a;
+      }
+      .facts-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .fact {
+        padding: 24px 29px;
+        border-right: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .fact:last-child {
+        border: 0;
+      }
+      .fact b {
+        color: var(--blue);
+        font:
+          700 1.8rem Outfit,
+          sans-serif;
+      }
+      .fact span {
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.25;
+      }
+      section {
+        padding: 90px 0;
+      }
+      .heading {
+        max-width: 700px;
+        margin-bottom: 40px;
+      }
+      .heading h2 {
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        letter-spacing: -0.035em;
+        margin: 10px 0 14px;
+      }
+      .heading p,
+      .copy p {
+        color: var(--muted);
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+        align-items: center;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 38px;
+      }
+      .about-column {
+        padding: 38px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: #fff;
+      }
+      .about-column h2 {
+        font-size: 2.15rem;
+        margin: 10px 0 16px;
+      }
+      .about-column p {
+        color: var(--muted);
+      }
+      .chairman-column {
+        background: var(--sky);
+        border-color: #d4e3f5;
+      }
+      .chairman-column blockquote {
+        margin: 18px 0;
+        color: var(--muted);
+        font:
+          400 1rem/1.7 "DM Sans",
+          sans-serif;
+      }
+      .chairman-profile {
+        width: 78px;
+        height: 78px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: linear-gradient(145deg, var(--blue), var(--navy));
+        color: #fff;
+        font:
+          700 1.45rem Outfit,
+          sans-serif;
+        margin-bottom: 18px;
+        border: 4px solid #fff;
+        box-shadow: 0 6px 16px #062d6524;
+      }
+      .chairman-signature {
+        color: var(--navy);
+        font:
+          700 1rem Outfit,
+          sans-serif;
+      }
+      .chairman-signature span {
+        display: block;
+        color: var(--muted);
+        font:
+          400 0.86rem "DM Sans",
+          sans-serif;
+        margin-top: 3px;
+      }
+      .chairman-column > p,
+      .chairman-column .checks,
+      .chairman-column .chief-message,
+      .chairman-column > .btn {
+        display: none;
+      }
+      .art {
+        height: 370px;
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(
+          145deg,
+          #81bafa,
+          #eaf4ff 48%,
+          #f4ad2c 49% 54%,
+          #163e7d 55%
+        );
+      }
+      .art:before {
+        content: "BBS";
+        position: absolute;
+        bottom: -55px;
+        left: 25px;
+        color: #fffc;
+        font:
+          800 clamp(7rem, 16vw, 12rem) Outfit,
+          sans-serif;
+        letter-spacing: -0.1em;
+      }
+      .art:after {
+        content: "Business · Leadership · Future";
+        position: absolute;
+        top: 28px;
+        left: 30px;
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      .copy h2 {
+        font-size: 2.5rem;
+        letter-spacing: -0.04em;
+        margin: 9px 0 15px;
+      }
+      .chief-message {
+        margin-top: 27px;
+        padding: 20px 22px;
+        border-left: 4px solid var(--gold);
+        border-radius: 0 10px 10px 0;
+        background: var(--sky);
+      }
+      .chief-message p {
+        color: var(--ink);
+        font-style: italic;
+        margin: 0 0 10px;
+      }
+      .chief-message strong {
+        color: var(--navy);
+        font:
+          700 0.92rem Outfit,
+          sans-serif;
+      }
+      .chief-message + .btn {
+        margin-top: 18px;
+      }
+      .checks {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 24px 0;
+      }
+      .checks span:before {
+        content: "✓";
+        margin-right: 8px;
+        color: var(--blue);
+        font-weight: 700;
+      }
+      .blue {
+        background: var(--blue);
+        color: #fff;
+      }
+      .program {
+        background: var(--sky);
+      }
+      .quick,
+      .objectives {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .quick {
+        margin: 22px 0 40px;
+      }
+      .quick div,
+      .objective,
+      .feature {
+        background: #fff;
+        border: 1px solid #dce7f5;
+        border-radius: 13px;
+        padding: 21px;
+      }
+      .quick span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      .quick b {
+        font:
+          700 1.15rem Outfit,
+          sans-serif;
+        color: var(--navy);
+      }
+      .tabs {
+        display: flex;
+        gap: 5px;
+        border-bottom: 1px solid #d5e2f2;
+        margin-bottom: 22px;
+      }
+      .tab {
+        border: 0;
+        background: none;
+        padding: 12px 16px;
+        color: var(--muted);
+        font: 600 0.88rem "DM Sans";
+        border-bottom: 3px solid transparent;
+      }
+      .tab.active {
+        color: var(--blue);
+        border-color: var(--blue);
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+      .objective .no {
+        color: var(--gold);
+        font: 700 1.5rem Outfit;
+      }
+      .objective h3,
+      .feature h3 {
+        font-size: 1.12rem;
+        margin: 17px 0 9px;
+      }
+      .objective p,
+      .feature p {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin: 0;
+      }
+      .syllabus {
+        background: #fff;
+        border: 1px solid #dce7f5;
+        border-radius: 13px;
+        overflow: hidden;
+      }
+      .syllabus ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .syllabus li {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--line);
+        color: #43546c;
+      }
+      .syllabus li:before {
+        content: "•";
+        color: var(--gold);
+        font-size: 1.3rem;
+        margin-right: 8px;
+      }
+      .why {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .feature {
+        transition: 0.2s;
+      }
+      .feature:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px #133c721a;
+      }
+      .life-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .life-card {
+        min-height: 270px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        color: #fff;
+        background: linear-gradient(145deg, #2f8fe4, #093878);
+        cursor: pointer;
+      }
+      .life-card:nth-child(2) {
+        background: linear-gradient(145deg, #f3a727, #b64b35);
+      }
+      .life-card:nth-child(3) {
+        background: linear-gradient(145deg, #3a77c9, #12294f);
+      }
+      .life-card::before {
+        content: "";
+        position: absolute;
+        width: 190px;
+        height: 190px;
+        border: 28px solid rgba(255, 255, 255, 0.16);
+        border-radius: 50%;
+        right: -54px;
+        top: -48px;
+        transition: transform 0.35s ease;
+      }
+      .life-card::after {
+        content: "";
+        position: absolute;
+        inset: 40% -20% -34% 16%;
+        background: rgba(255, 255, 255, 0.13);
+        transform: rotate(-24deg);
+        transition: transform 0.35s ease;
+      }
+      .life-card:hover::before {
+        transform: scale(1.22) rotate(18deg);
+      }
+      .life-card:hover::after {
+        transform: rotate(-24deg) translateX(-35px);
+      }
+      .life-card-content {
+        position: absolute;
+        z-index: 1;
+        left: 24px;
+        right: 24px;
+        bottom: 22px;
+        transform: translateY(23px);
+        transition: transform 0.3s ease;
+      }
+      .life-card:hover .life-card-content {
+        transform: translateY(0);
+      }
+      .life-card span {
+        display: block;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+      .life-card h3 {
+        margin: 6px 0 0;
+        font-size: 1.5rem;
+      }
+      .life-card p {
+        margin: 10px 0 0;
+        font-size: 0.88rem;
+        line-height: 1.45;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .life-card:hover p {
+        opacity: 1;
+      }
+      .icon {
+        width: 46px;
+        height: 46px;
+        background: #e9f2ff;
+        border-radius: 12px;
+        color: var(--blue);
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+      }
+      .career {
+        background: linear-gradient(120deg, var(--navy), #0c54b2);
+        color: #fff;
+      }
+      .career .heading h2,
+      .career .eyebrow {
+        color: #fff;
+      }
+      .career .heading p {
+        color: #c7dbf6;
+      }
+      .career-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .career-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .career-list span {
+        padding: 14px;
+        background: #fff1;
+        border: 1px solid #fff2;
+        border-radius: 9px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      .callout {
+        background: var(--gold);
+        color: #172236;
+        border-radius: 14px;
+        padding: 32px;
+      }
+      .callout h3 {
+        font-size: 1.8rem;
+        margin: 0 0 9px;
+      }
+      .callout .btn {
+        background: var(--navy);
+        color: #fff;
+      }
+      .college-map {
+        display: block;
+        width: 100%;
+        height: 220px;
+        margin-top: 22px;
+        border: 0;
+        border-radius: 10px;
+      }
+      footer {
+        background: var(--sky);
+        color: var(--muted);
+        padding: 55px 0 0;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 60px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--navy);
+        font: 700 1.25rem Outfit;
+      }
+      .footer-brand img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+      }
+      footer p,
+      footer a,
+      footer li {
+        font-size: 0.88rem;
+      }
+      footer h3 {
+        color: var(--navy);
+        font-size: 1rem;
+      }
+      footer ul {
+        list-style: none;
+        padding: 0;
+      }
+      footer a {
+        display: block;
+        margin: 8px 0;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 10px 0;
+      }
+      .contact-item svg {
+        width: 17px;
+        height: 17px;
+        color: var(--blue);
+        flex: none;
+      }
+      footer ul li:last-child:not(.contact-item),
+      .footer-grid > div:first-child p:last-child {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      footer ul li:last-child:not(.contact-item)::before,
+      .footer-grid > div:first-child p:last-child::before {
+        color: var(--blue);
+        font-size: 1.15rem;
+        line-height: 1;
+      }
+      footer ul li:last-child:not(.contact-item)::before {
+        content: "◷";
+      }
+      .footer-grid > div:first-child p:last-child::before {
+        content: "□";
+      }
+      .socials {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .socials a {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--blue);
+        transition: 0.2s;
+      }
+      .socials a:hover {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+      .socials svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .fine {
+        background: #031f47;
+        color: #b8cae4;
+        border-top: 1px solid #031f47;
+        width: 100%;
+        margin: 38px 0 0;
+        padding: 18px 0;
+      }
+      .fine .container {
+        font-size: 0.78rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 900px) {
+        .links,
+        .nav > .apply {
+          display: none;
+        }
+        .menu {
+          display: block;
+        }
+        .hero-grid,
+        .intro,
+        .about-grid,
+        .career-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-grid {
+          padding: 70px 0;
+        }
+        .hero-card {
+          min-height: 290px;
+          max-width: 500px;
+        }
+        .facts-grid,
+        .quick,
+        .objectives {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .why {
+          grid-template-columns: 1fr 1fr;
+        }
+        .life-gallery {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .mobile .links {
+          display: flex;
+          position: absolute;
+          top: 78px;
+          left: 0;
+          right: 0;
+          background: #fff;
+          padding: 20px;
+          flex-direction: column;
+          align-items: flex-start;
+          box-shadow: 0 10px 15px #0002;
+        }
+      }
+      @media (max-width: 580px) {
+        .container {
+          width: calc(100% - 30px);
+        }
+        .top .container {
+          justify-content: center;
+        }
+        .top .container span:first-child {
+          display: none;
+        }
+        .hero-grid {
+          padding: 60px 0;
+          min-height: auto;
+        }
+        .hero h1 {
+          font-size: 2.75rem;
+        }
+        .facts-grid,
+        .quick,
+        .objectives,
+        .why,
+        .life-gallery,
+        .career-list,
+        .footer-grid,
+        .syllabus ul,
+        .checks {
+          grid-template-columns: 1fr;
+        }
+        .fact {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .intro {
+          gap: 35px;
+        }
+        .art {
+          height: 270px;
+        }
+        section {
+          padding: 70px 0;
+        }
+        .tabs {
+          overflow: auto;
+        }
+        .tab {
+          white-space: nowrap;
+        }
+        .nav {
+          height: 70px;
+        }
+        .mobile .links {
+          top: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <div class="container">
+        <span>+977-21-465144 | univcollege791@gmail.com</span
+        ><span>Affiliated to Tribhuvan University (T.U)</span>
+      </div>
+    </div>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="#home"
+          ><img src="images/univ-logo.png" alt="Univ College logo" /><span
+            ><b>Univ College</b
+            ><small>Education for Excellence ... </small></span
+          ></a
+        >
+        <nav class="links">
+          <a href="#home">Home</a><a href="#about">About Us</a
+          ><a href="#program">BBS Program</a><a href="#highlights">Highlights</a
+          ><a href="#contact">Contact Us</a>
+        </nav>
+        <a class="apply" href="#apply">Apply Now</a
+        ><button class="menu" aria-label="Toggle menu">☰</button>
+      </div>
+    </header>
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow" style="color: #c9ddfb">
+              Welcome to Univ College
+            </div>
+            <h1>Learn today. <em>Lead tomorrow.</em></h1>
+            <p>
+              Univ College is a Tribhuvan University-affiliated institution in
+              Biratnagar, dedicated to building capable, ethical and confident
+              business graduates through its focused BBS programme.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#apply">Apply for Pre-Admission →</a
+              ><a class="btn outline" href="#program">Explore BBS</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="degree">
+              <img src="images/univ-logo.png" alt="" /><b
+                >Bachelor of Business Studies</b
+              ><span>Leadership starts with learning.</span>
+            </div>
+            <div class="tag"><b>4 Years</b>TU affiliated degree</div>
+          </div>
+        </div>
+      </section>
+      <div class="facts">
+        <div class="container facts-grid">
+          <div class="fact">
+            <b>15+</b><span>Years of academic excellence</span>
+          </div>
+          <div class="fact">
+            <b>120</b><span>Credit hours of business learning</span>
+          </div>
+          <div class="fact">
+            <b>4</b><span>Years to a recognised TU degree</span>
+          </div>
+          <div class="fact"><b>1:1</b><span>Focused student support</span></div>
+        </div>
+      </div>
+      <section id="about">
+        <div class="container about-grid">
+          <div class="about-column">
+            <div class="eyebrow">About Univ College</div>
+            <h2>A focused place to learn, grow and lead.</h2>
+            <p>
+              Univ College is a Tribhuvan University-affiliated college in
+              Biratnagar, committed to providing quality, accessible and
+              practical higher education.
+            </p>
+            <p>
+              With Bachelor of Business Studies as our dedicated faculty, we
+              give every student focused academic guidance and the skills to
+              build a meaningful career in business, entrepreneurship and
+              management.
+            </p>
+            <a class="btn blue" href="#program">Explore BBS →</a>
+          </div>
+          <div class="copy about-column chairman-column">
+            <div
+              class="chairman-profile"
+              aria-label="Chairman photo placeholder"
+            >
+              RG
+            </div>
+            <div class="eyebrow">From the Chairman's Desk</div>
+            <h2>Welcome to Univ College.</h2>
+            <blockquote>
+              “Our purpose is to create a supportive learning environment where
+              students gain knowledge, confidence and the values to become
+              responsible leaders. We welcome every learner who is ready to work
+              hard and shape a brighter future.”
+            </blockquote>
+            <div class="chairman-signature">
+              Ram Ghimire<span>Chairman, Univ College</span>
+            </div>
+            <p>
+              The Bachelor of Business Studies programme develops the
+              management, financial and analytical foundation needed to succeed
+              in a changing business world. Students learn through a
+              comprehensive TU curriculum, practical scenarios and guided
+              professional development.
+            </p>
+            <p>
+              With a single dedicated faculty, Univ College keeps its attention
+              where it matters: helping every BBS student grow into a capable,
+              responsible professional.
+            </p>
+            <div class="checks">
+              <span>Management & leadership</span
+              ><span>Finance & accounting</span><span>Marketing strategy</span
+              ><span>Entrepreneurial thinking</span>
+            </div>
+            <div class="chief-message">
+              <p>
+                “At Univ College, we believe education should give students the
+                confidence to think independently, act responsibly and create
+                meaningful change.”
+              </p>
+              <strong>Campus Chief · Univ College</strong>
+            </div>
+            <a class="btn blue" href="#program">Discover the programme →</a>
+          </div>
+        </div>
+      </section>
+      <section class="program" id="program">
+        <div class="container">
+          <div class="heading">
+            <div class="eyebrow">Program overview</div>
+            <h2>Everything you need to know about BBS.</h2>
+            <p>
+              Business education that prepares students to understand
+              organisations, make informed decisions and create meaningful
+              opportunities.
+            </p>
+          </div>
+          <div class="quick">
+            <div><span>Focus</span><b>Business Leadership</b></div>
+            <div><span>Duration</span><b>4 Years</b></div>
+            <div><span>Credit Hours</span><b>120</b></div>
+            <div><span>Affiliated to</span><b>Tribhuvan University</b></div>
+          </div>
+          <div class="tabs">
+            <button class="tab active" data-tab="overview">Overview</button
+            ><button class="tab" data-tab="syllabus">Course Syllabus</button
+            ><button class="tab" data-tab="admission">Admission</button
+            ><button class="tab" data-tab="career">Career Prospects</button>
+          </div>
+          <div class="panel active" id="overview">
+            <p style="color: var(--muted); max-width: 850px">
+              BBS graduates are positioned for careers as business managers,
+              financial analysts, marketing executives, human-resource
+              specialists, entrepreneurs and consultants. The programme builds
+              broad business knowledge and practical skills for a dynamic,
+              competitive business environment.
+            </p>
+            <div class="objectives">
+              <article class="objective">
+                <div class="no">01</div>
+                <h3>Business management</h3>
+                <p>
+                  Master strategic planning, organisational behaviour and
+                  operations for effective leadership.
+                </p>
+              </article>
+              <article class="objective">
+                <div class="no">02</div>
+                <h3>Financial acumen</h3>
+                <p>
+                  Develop accounting, financial management and analytics skills
+                  for data-informed decisions.
+                </p>
+              </article>
+              <article class="objective">
+                <div class="no">03</div>
+                <h3>Marketing strategy</h3>
+                <p>
+                  Build marketing, brand management and customer relationship
+                  skills.
+                </p>
+              </article>
+              <article class="objective">
+                <div class="no">04</div>
+                <h3>Entrepreneurial leadership</h3>
+                <p>
+                  Foster innovation and leadership abilities for successful
+                  ventures.
+                </p>
+              </article>
+            </div>
+          </div>
+          <div class="panel" id="syllabus">
+            <div class="syllabus">
+              <ul>
+                <li>Business Communication</li>
+                <li>Business Environment in Nepal</li>
+                <li>Economics & Business Statistics</li>
+                <li>Financial & Management Accounting</li>
+                <li>Human Resource Management</li>
+                <li>Business Law & Taxation</li>
+                <li>Marketing & Financial Management</li>
+                <li>Research Methods & Strategy</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel" id="admission">
+            <div class="syllabus">
+              <ul>
+                <li>Complete pre-admission application</li>
+                <li>Submit SEE/SLC and +2 transcripts</li>
+                <li>Attend the entrance assessment</li>
+                <li>Confirm your seat after interview</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel" id="career">
+            <div class="syllabus">
+              <ul>
+                <li>Business Manager</li>
+                <li>Financial Analyst</li>
+                <li>Marketing Executive</li>
+                <li>Human Resource Specialist</li>
+                <li>Entrepreneur</li>
+                <li>Business Consultant</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="highlights">
+        <div class="container">
+          <div class="heading">
+            <div class="eyebrow">Why BBS at Univ College</div>
+            <h2>Practical learning for ambitious business minds.</h2>
+            <p>
+              Go beyond theory with experiences that turn business knowledge
+              into professional confidence.
+            </p>
+          </div>
+          <div class="why">
+            <article class="feature">
+              <div class="icon">01</div>
+              <h3>Business excellence</h3>
+              <p>
+                TU-affiliated study, industry-aware faculty and case-study
+                learning grounded in real scenarios.
+              </p>
+            </article>
+            <article class="feature">
+              <div class="icon">02</div>
+              <h3>Professional growth</h3>
+              <p>
+                Leadership development, soft-skill practice, corporate
+                networking and career guidance.
+              </p>
+            </article>
+            <article class="feature">
+              <div class="icon">03</div>
+              <h3>Career-ready learning</h3>
+              <p>
+                Internship opportunities, expert mentorship and a focus on
+                employable practical skills.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section id="life-at-univ">
+        <div class="container">
+          <div class="heading">
+            <div class="eyebrow">Beyond the classroom</div>
+            <h2>Life at Univ</h2>
+            <p>
+              College is a place to learn, connect and discover your
+              confidence—inside and outside the classroom.
+            </p>
+          </div>
+          <div class="life-gallery">
+            <article class="life-card">
+              <div class="life-card-content">
+                <span>Learning</span>
+                <h3>Classroom moments</h3>
+                <p>
+                  Collaborative classes where questions, ideas and progress are
+                  shared.
+                </p>
+              </div>
+            </article>
+            <article class="life-card">
+              <div class="life-card-content">
+                <span>Community</span>
+                <h3>Campus events</h3>
+                <p>
+                  Celebrate culture, connection and the experiences that make
+                  college memorable.
+                </p>
+              </div>
+            </article>
+            <article class="life-card">
+              <div class="life-card-content">
+                <span>Growth</span>
+                <h3>Future ready</h3>
+                <p>
+                  Build professional confidence through presentations, projects
+                  and practical learning.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="career" id="apply">
+        <div class="container career-grid">
+          <div>
+            <div class="heading">
+              <div class="eyebrow">Program highlights</div>
+              <h2>Ready to lead in business?</h2>
+              <p>
+                Join a community of future managers, innovators and
+                entrepreneurs. Your professional journey begins here.
+              </p>
+            </div>
+            <div class="career-list">
+              <span>Comprehensive curriculum</span
+              ><span>Industry case studies</span
+              ><span>Corporate internships</span
+              ><span>Expert faculty mentorship</span><span>Guest lectures</span
+              ><span>Leadership skills</span>
+            </div>
+          </div>
+          <aside class="callout">
+            <h3>Begin your BBS journey.</h3>
+            <p>
+              Visit us and talk to the admission team about the next intake,
+              eligibility and application process.
+            </p>
+            <iframe
+              class="college-map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3570.844058641817!2d87.27920017433831!3d26.49296537689975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef731cb3ba3ebb%3A0xd77f4ff3824cf09d!2sUniv%20College!5e0!3m2!1sen!2snp!4v1787405487577!5m2!1sen!2snp"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              title="Univ College location"
+            ></iframe>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand">
+              <img src="images/univ-logo.png" alt="Univ College logo" />Univ
+              College
+            </div>
+            <p>
+              We prepare students for success in their academic and professional
+              journeys through focused business education.
+            </p>
+            <p>Established 2065 B.S. · Tribhuvan University</p>
+          </div>
+          <div>
+            <h3>Navigation</h3>
+            <a href="#home">Home</a><a href="#about">About Us</a
+            ><a href="#program">BBS Program</a
+            ><a href="#highlights">Highlights</a>
+          </div>
+          <div>
+            <h3>Contact Info</h3>
+            <ul>
+              <li class="contact-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="2.5" />
+                </svg>
+                Biratnagar-3, Morang, Koshi Province, Nepal
+              </li>
+              <li class="contact-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 16.9v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.16 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.37 1.92.72 2.84a2 2 0 0 1-.45 2.11L8.1 9.95a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.92.35 1.87.59 2.84.72A2 2 0 0 1 22 16.9Z"
+                  /></svg
+                >+977-021-465144
+              </li>
+              <li class="contact-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" /></svg
+                ><a href="mailto:info@univcollege.edu.np"
+                  >univcollege791@gmail.com</a
+                >
+              </li>
+              <li>Mon–Fri: 6:00 AM – 5:00 PM</li>
+            </ul>
+            <div class="socials" aria-label="Social media links">
+              <a href="#" aria-label="Facebook"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M13.5 21v-8h2.75l.41-3h-3.16V8.08c0-.87.24-1.47 1.5-1.47h1.8V3.93c-.31-.04-1.38-.13-2.63-.13-2.6 0-4.38 1.59-4.38 4.5V10H6.84v3h2.95v8h3.71Z"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="1"
+                    fill="currentColor"
+                    stroke="none"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M5 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6.5 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.58c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94V21h-4V9Z"
+                  /></svg
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fine">
+        <div class="container">
+          <span>© 2083 B.S. Univ College. All rights reserved.</span>
+          <span
+            >Affiliated to Tribhuvan University, Faculty of Management.</span
+          >
+        </div>
+      </div>
+    </footer>
+    <script>
+      const menu = document.querySelector(".menu");
+      menu.onclick = () => {
+        document.querySelector("header").classList.toggle("mobile");
+        menu.textContent = menu.textContent === "☰" ? "×" : "☰";
+      };
+      document.querySelectorAll(".tab").forEach(
+        (t) =>
+          (t.onclick = () => {
+            document
+              .querySelectorAll(".tab,.panel")
+              .forEach((e) => e.classList.remove("active"));
+            t.classList.add("active");
+            document.getElementById(t.dataset.tab).classList.add("active");
+          }),
+      );
+    </script>
+  </body>
 </html>
