@@ -2017,9 +2017,36 @@
       mobileGallery.addEventListener("change", setHighlightsSlider);
       setHighlightsSlider();
       const adModal = document.querySelector(".ad-modal");
+      const adContent = document.querySelector(".ad-content");
+      const adImage = document.querySelector(".ad-content img");
+
+      // Load ad-modal settings from admin panel
+      function loadAdModalSettings() {
+        const saved = localStorage.getItem("adModalSettings");
+        if (saved) {
+          const settings = JSON.parse(saved);
+          adImage.src = settings.imagePath || "images/Ad3.png";
+          adImage.alt = settings.altText || "Univ College admission announcement";
+          adModal.setAttribute("aria-label", settings.ariaLabel || "Admission announcement");
+        }
+      }
+
+      // Check if modal should be visible
+      function initAdModal() {
+        const isVisible = localStorage.getItem("adModalVisible") !== "false";
+        
+        if (!isVisible) {
+          adModal.hidden = true;
+          return;
+        }
+
+        loadAdModalSettings();
+      }
+
       const closeAdModal = () => {
         adModal.hidden = true;
       };
+
       adModal
         .querySelector(".ad-close")
         .addEventListener("click", closeAdModal);
@@ -2029,6 +2056,9 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeAdModal();
       });
+
+      // Initialize ad modal on page load
+      initAdModal();
     </script>
   </body>
 </html>
