@@ -2026,15 +2026,19 @@
         if (saved) {
           const settings = JSON.parse(saved);
           adImage.src = settings.imagePath || "images/Ad3.png";
-          adImage.alt = settings.altText || "Univ College admission announcement";
-          adModal.setAttribute("aria-label", settings.ariaLabel || "Admission announcement");
+          adImage.alt =
+            settings.altText || "Univ College admission announcement";
+          adModal.setAttribute(
+            "aria-label",
+            settings.ariaLabel || "Admission announcement",
+          );
         }
       }
 
       // Check if modal should be visible
       function initAdModal() {
         const isVisible = localStorage.getItem("adModalVisible") !== "false";
-        
+
         if (!isVisible) {
           adModal.hidden = true;
           return;
