@@ -806,6 +806,63 @@
         font-weight: 600;
         font-size: 0.9rem;
       }
+      .syllabus-year {
+        margin-bottom: 45px;
+      }
+      .syllabus-year h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--navy);
+        margin: 0 0 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .syllabus-year h3::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--blue);
+        border-radius: 50%;
+      }
+      .syllabus-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .syllabus-table thead {
+        background: var(--sky);
+        border-bottom: 2px solid var(--line);
+      }
+      .syllabus-table th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 700;
+        color: var(--navy);
+        font-size: 0.9rem;
+      }
+      .syllabus-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--line);
+        color: #43546c;
+        font-size: 0.95rem;
+      }
+      .syllabus-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .syllabus-table tbody tr:hover {
+        background: #f8fbff;
+      }
+      .syllabus-table .total-row {
+        background: var(--sky);
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .syllabus-table .total-row:hover {
+        background: var(--sky);
+      }
       .callout {
         background: var(--gold);
         color: #172236;
@@ -928,6 +985,10 @@
         width: 16px;
         height: 16px;
         fill: currentColor;
+      }
+      .socials .instagram-icon {
+        fill: none;
+        stroke: currentColor;
       }
       .fine {
         background: #031f47;
@@ -1356,17 +1417,214 @@
             </p>
           </div>
           <div class="panel" id="syllabus">
-            <div class="syllabus">
-              <ul>
-                <li>Business Communication</li>
-                <li>Business Environment in Nepal</li>
-                <li>Economics & Business Statistics</li>
-                <li>Financial & Management Accounting</li>
-                <li>Human Resource Management</li>
-                <li>Business Law & Taxation</li>
-                <li>Marketing & Financial Management</li>
-                <li>Research Methods & Strategy</li>
-              </ul>
+            <div style="margin: 30px 0">
+              <div class="syllabus-year">
+                <h3>First Year</h3>
+                <table class="syllabus-table">
+                  <thead>
+                    <tr>
+                      <th>S.N</th>
+                      <th>Course Code</th>
+                      <th>Course Title</th>
+                      <th>Credit Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>MGT201</td>
+                      <td>Business English</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MGT202</td>
+                      <td>Business Statistics</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MGT207</td>
+                      <td>Microeconomics for Business</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>MGT211</td>
+                      <td>Financial Accounting and Analysis</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>MGT213</td>
+                      <td>Principles of Management</td>
+                      <td>100</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td colspan="3">Total</td>
+                      <td>500</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="syllabus-year">
+                <h3>Second Year</h3>
+                <table class="syllabus-table">
+                  <thead>
+                    <tr>
+                      <th>S.N</th>
+                      <th>Course Code</th>
+                      <th>Course Title</th>
+                      <th>Credit Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>MGT255</td>
+                      <td>Business Communication</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MGT259</td>
+                      <td>Macroeconomics for Business</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MGT212</td>
+                      <td>Cost and Management Accounting</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>MGT283</td>
+                      <td>
+                        Organizational Behavior and Human Resource Management
+                      </td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>MGT285</td>
+                      <td>Foundations of Financial Management</td>
+                      <td>100</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td colspan="3">Total</td>
+                      <td>500</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="syllabus-year">
+                <h3>Third Year</h3>
+                <table class="syllabus-table">
+                  <thead>
+                    <tr>
+                      <th>S.N</th>
+                      <th>Course Code</th>
+                      <th>Course Title</th>
+                      <th>Credit Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>MGT224</td>
+                      <td>Business Law</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MGT226</td>
+                      <td>Foundation of Financial Management</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MGT217</td>
+                      <td>Business Environment and Strategy</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>MGT224</td>
+                      <td>Taxation in Nepal</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>MGT214</td>
+                      <td>Fundamentals of Marketing</td>
+                      <td>100</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td colspan="3">Total</td>
+                      <td>500</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="syllabus-year">
+                <h3>Fourth Year</h3>
+                <table class="syllabus-table">
+                  <thead>
+                    <tr>
+                      <th>S.N</th>
+                      <th>Course Code</th>
+                      <th>Course Title</th>
+                      <th>Credit Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>MGT225</td>
+                      <td>Entrepreneurship</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MGT221</td>
+                      <td>Business Research Methods</td>
+                      <td>50</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MGT401</td>
+                      <td>Final Project</td>
+                      <td>50</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td></td>
+                      <td>Concentration I</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td></td>
+                      <td>Concentration II</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td></td>
+                      <td>Concentration III</td>
+                      <td>100</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td colspan="3">Total</td>
+                      <td>500</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div class="panel" id="admission">
@@ -1633,33 +1891,14 @@
               <li>Mon–Fri: 6:00 AM – 5:00 PM</li>
             </ul>
             <div class="socials" aria-label="Social media links">
-              <a href="#" aria-label="Facebook"
+              <a
+                href="https://www.facebook.com/UnivCollege"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
                 ><svg viewBox="0 0 24 24">
                   <path
                     d="M13.5 21v-8h2.75l.41-3h-3.16V8.08c0-.87.24-1.47 1.5-1.47h1.8V3.93c-.31-.04-1.38-.13-2.63-.13-2.6 0-4.38 1.59-4.38 4.5V10H6.84v3h2.95v8h3.71Z"
-                  /></svg
-              ></a>
-              <a href="#" aria-label="Instagram"
-                ><svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle
-                    cx="17.5"
-                    cy="6.5"
-                    r="1"
-                    fill="currentColor"
-                    stroke="none"
-                  /></svg
-              ></a>
-              <a href="#" aria-label="LinkedIn"
-                ><svg viewBox="0 0 24 24">
-                  <path
-                    d="M5 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6.5 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.58c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94V21h-4V9Z"
                   /></svg
               ></a>
             </div>
@@ -1778,9 +2017,40 @@
       mobileGallery.addEventListener("change", setHighlightsSlider);
       setHighlightsSlider();
       const adModal = document.querySelector(".ad-modal");
+      const adContent = document.querySelector(".ad-content");
+      const adImage = document.querySelector(".ad-content img");
+
+      // Load ad-modal settings from admin panel
+      function loadAdModalSettings() {
+        const saved = localStorage.getItem("adModalSettings");
+        if (saved) {
+          const settings = JSON.parse(saved);
+          adImage.src = settings.imagePath || "images/Ad3.png";
+          adImage.alt =
+            settings.altText || "Univ College admission announcement";
+          adModal.setAttribute(
+            "aria-label",
+            settings.ariaLabel || "Admission announcement",
+          );
+        }
+      }
+
+      // Check if modal should be visible
+      function initAdModal() {
+        const isVisible = localStorage.getItem("adModalVisible") !== "false";
+
+        if (!isVisible) {
+          adModal.hidden = true;
+          return;
+        }
+
+        loadAdModalSettings();
+      }
+
       const closeAdModal = () => {
         adModal.hidden = true;
       };
+
       adModal
         .querySelector(".ad-close")
         .addEventListener("click", closeAdModal);
@@ -1790,6 +2060,9 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeAdModal();
       });
+
+      // Initialize ad modal on page load
+      initAdModal();
     </script>
   </body>
 </html>
